@@ -21,6 +21,17 @@ app.locals.ENV_DEVELOPMENT = env == 'development';
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// stylus setup
+app.use('/css', stylus.middleware({
+  src: __dirname + '/views/stylus',
+  dest: __dirname + '/public/css',
+  compile: function (str, path) {
+    return stylus(str)
+      .set('filename', path)
+      .set('compress', true);
+  }
+}));
+
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
