@@ -4,11 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var stylus = require('stylus');
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
 
-var app = express();
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/employees');
+
+var app = exports.app = express();
 
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
@@ -18,6 +22,7 @@ app.locals.ENV_DEVELOPMENT = env == 'development';
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
 
 // stylus setup
 app.use('/css', stylus.middleware({
@@ -30,6 +35,7 @@ app.use('/css', stylus.middleware({
   }
 }));
 
+
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -41,6 +47,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+//ruta principal
+require('./routes/main.js');
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p=JSON.stringify(employees)
+  p
+    a(href="/panel/employees/new") New
+  table
+    tr
+      th N
+      th Name
+      th Last Name
+      th Email
+      th Options
+    - employees.forEach(function(v,i){
+    tr
+      td=i
+      td=v.name
+      td=v.lastName
+      td #{v.email}
+      td
+        a(href="/panel/employees/edit/"+v._id) Edit
+        | 
+        a(href="/panel/employees/delete/"+v._id) Delete
+    - });
