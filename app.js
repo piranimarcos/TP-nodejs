@@ -13,8 +13,10 @@ var routes = require('./routes/index');
 var users = require('./routes/user');
 
 var mongoose = require('mongoose');
+var fixtures = require('mongoose-fixtures');
 mongoose.connect('mongodb://localhost/employees');
 
+fixtures.load('./fixtures/fixtures.js');
 
 var app = exports.app = express();
 
