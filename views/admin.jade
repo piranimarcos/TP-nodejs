@@ -2,6 +2,9 @@ extends layout
 
 block content
   h1= title
+  -if(flashmsg){
+  p=flashmsg
+  -}
   form(action='',method='post')
     div
       label(for='email') Email:

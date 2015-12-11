@@ -4,15 +4,20 @@ var Employees = require('../models/employees.js');
 var Admins = require('../models/admins.js');
 
 app.get('/admin', function(req, res){
-    res.render('admin', { title: 'Login'});
+    var msg = req.flash('message');
+    res.render('admin', { title: 'Login', flashmsg: msg});
 });
 
 
-app.post('/admin', passport.authenticate('AdminLogin', 
+app.post('/admin',function(req, res, next){
+    req.flash('message', 'Error to login!'); 
+    next(); 
+}, 
+    passport.authenticate('AdminLogin', 
     { successRedirect: '/panel/employees',
       failureRedirect: '/admin',
       failureFlash: true 
-}));
+    }));
 
 
 app.get('/panel/employees', function(req, res){
