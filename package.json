@@ -14,6 +14,9 @@
     "jade": "^1.11.0",
     "mongoose": "^4.3.0",
     "morgan": "^1.6.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "pow-mongodb-fixtures": "^0.13.0",
     "serve-favicon": "^2.3.0",
     "stylus": "^0.52.4"
   },

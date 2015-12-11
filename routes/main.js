@@ -1,5 +1,19 @@
 var app = module.parent.exports.app;
+var passport = module.parent.exports.passport;
 var Employees = require('../models/employees.js');
+var Admins = require('../models/admins.js');
+
+app.get('/admin', function(req, res){
+    res.render('admin', { title: 'Login'});
+});
+
+
+app.post('/admin', passport.authenticate('AdminLogin', 
+    { successRedirect: '/panel/employees',
+      failureRedirect: '/admin',
+      failureFlash: true 
+}));
+
 
 app.get('/panel/employees', function(req, res){
     var msg = req.flash('message'); // Read the flash message
@@ -9,7 +23,7 @@ app.get('/panel/employees', function(req, res){
 });
 
 app.get('/panel/employees/new', function(req, res){
-    req.flash('message', 'You added a new employee!'); // Save the flash message
+    req.flash('message', 'You added a new employee!'); // Save the flash message in this page
     res.render('new', { title: 'New Employee'});
 });
 
@@ -26,7 +40,7 @@ app.post('/panel/employees/new', function(req, res){
 });
 
 app.get('/panel/employees/delete/:id', function(req, res){
-    req.flash('message', 'You deleted a employee');
+    req.flash('message', 'You deleted an employee'); //Save the flash message in this page
     Employees.remove({ _id: req.params.id }, function(err, doc){
         if(!err){
             res.redirect('/panel/employees');
@@ -37,6 +51,7 @@ app.get('/panel/employees/delete/:id', function(req, res){
 });
 
 app.get('/panel/employees/edit/:id', function(req, res){
+    req.flash('message', 'you modified an employee!'); // Save the flash message in this page
     Employees.findOne({ _id: req.params.id }, function(err, doc){
         if(!err){
             res.render('edit', { title: 'Edit employee', employee: doc});

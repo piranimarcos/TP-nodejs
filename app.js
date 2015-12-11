@@ -7,12 +7,14 @@ var bodyParser = require('body-parser');
 var stylus = require('stylus');
 var session = require('express-session')
 var flash = require('connect-flash');
+var passport = exports.passport = require('passport');
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/employees');
+
 
 var app = exports.app = express();
 
@@ -46,9 +48,14 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 //flash message
 app.use(session({secret: 'supersecret', saveUninitialized: true, resave: true}));
+app.use(passport.initialize()); //passport
+app.use(passport.session());  //passport
 app.use(flash());
+//local strategy
+require('./auth/local-strategy.js');
 
 app.use('/', routes);
 app.use('/users', users);

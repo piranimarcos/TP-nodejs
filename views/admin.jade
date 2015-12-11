@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  form(action='',method='post')
+    div
+      label(for='email') Email:
+      input(type='email', name='email', id='email', placeholder='Email...')
+    div
+      label(for='password') Password:
+      input(type='password', name='password', id='password', placeholder='Password...')
+    div
+      input(type='submit', value='Sing In')
+  style.
+    form label { min-width: 80px; display: inline-block; }
+    form > div { padding: 5px; }
