@@ -19,7 +19,7 @@ block content
 
     script.
         $(document).ready(function(){
-            $('input#search').change(function(){
+            $('input#search').keyup(function(){
                 var val = $(this).val();
                 console.log(val);
                 $.ajax( "http://localhost:3200/employees/search/"+val).done(function(data){
