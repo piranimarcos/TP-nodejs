@@ -1,28 +1,28 @@
 extends layout
 
 block content
-    h1= title
-    br
     ul#menu
       li 
         b Welcome to employee's search
       li
         a(href="/admin") Adminstrator
-    
-    h1(align="center") Buscador
-    .form-group.form-group-lg
-      .col-sm-4
-      .col-sm-4
-        input#search.form-control.center(type='text', placeholder='Busqueda')
-      .col-sm-4
+    br
     .row
-      .col-sm-2
+      .col-sm-3
       .col-sm-6
+        h1(align="center") Search
+        br
+        .form-group.form-group-lg
+            input#search.form-control.center(type='text', placeholder='Busqueda')
+      .col-sm-3
+    .row
+      .col-sm-1
+      .col-sm-10
         p Resultados: 
             spam#total 0
         div#resultados
-      .col-sm-2
-    
+      .col-sm-1
+        
 
     script.
         $(document).ready(function(){
@@ -36,7 +36,8 @@ block content
                     $('#resultados').html('');
                     $.each(data, function(index, doc){
                         console.log(doc);
-                        $('#resultados').append('<p>'+doc.name+'</p>');
+                        //$('#resultados').append('<p>'+doc.name+'</p>');
+                        $('#resultados').append('<div class="col-sm-4"><div class="thumbnail"><div class="caption"><h4><b>Name:</b> '+doc.name+'</h4><p><b>Last Name:</b> '+doc.lastName+'</p><p><b>Email:</b> '+doc.email+'</p></div></div></div>');
                     });
                 });
             });
