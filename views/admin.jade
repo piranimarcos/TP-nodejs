@@ -2,18 +2,21 @@ extends layout
 
 block content
   h1= title
-  -if(flashmsg){
-  p=flashmsg
-  -}
   form(action='',method='post')
     div
       label(for='email') Email:
-      input(type='email', name='email', id='email', placeholder='Email...')
+      input(type='email', name='email', id='email', placeholder='Email...', required='')
     div
       label(for='password') Password:
-      input(type='password', name='password', id='password', placeholder='Password...')
+      input(type='password', name='password', id='password', placeholder='Password...', required='')
     div
       input(type='submit', value='Sing In')
+  br
+  -if(flashmsg=='Error to login!'){
+  .row
+    p.col-sm-3.bg-danger.center= flashmsg
+    .col-sm-9
+  -}
   style.
     form label { min-width: 80px; display: inline-block; }
     form > div { padding: 5px; }

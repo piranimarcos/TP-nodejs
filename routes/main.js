@@ -83,7 +83,7 @@ app.post('/panel/employees/new', adminAuth, function(req, res){
 });
 
 app.get('/panel/employees/delete/:id', adminAuth, function(req, res){
-    req.flash('message', 'You deleted an employee'); //Save the flash message in this page
+    req.flash('message', 'You deleted an employee!'); //Save the flash message in this page
     Employees.remove({ _id: req.params.id }, function(err, doc){
         if(!err){
             res.redirect('/panel/employees');
