@@ -53,7 +53,7 @@ app.get('/employees/search/:name', function(req, res){
     Employees.find({ name: new RegExp(".*"+req.params.name+".*") })
         //.populate('sueldo')
         //.limit(10)
-        //.select('-password')
+        .select('-password')
         //.skip(4)
         .exec( function(err, docs){
            res.json(docs); 
@@ -68,14 +68,18 @@ app.get('/panel/employees/new', adminAuth, function(req, res){
 
 app.post('/panel/employees/new', adminAuth, function(req, res){
     console.log(req.body);
-    var e = new Employees({ name: req.body.name, lastName: req.body.lastName, email: req.body.email });
-    e.save(function(err, doc){
-        if(!err){
-            res.redirect('/panel/employees');
-        } else {
-            res.end(err);    
-        }    
-    }); 
+    if (req.body.password === req.body.confirm) {
+        var e = new Employees({ name: req.body.name, lastName: req.body.lastName, email: req.body.email });
+        e.save(function(err, doc){
+            if(!err){
+                res.redirect('/panel/employees');
+            } else {
+                res.end(err);    
+            }    
+        }); 
+    }else{
+        res.render('new', {title: 'New EMployee', error: true });
+    }
 });
 
 app.get('/panel/employees/delete/:id', adminAuth, function(req, res){
