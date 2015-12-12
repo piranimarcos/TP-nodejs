@@ -20,6 +20,9 @@ app.use(function(req, res, next) {
 });
 
 app.get('/admin', function(req, res){
+    if (req.user) {
+        res.redirect('/panel/employees');
+    };
     var msg = req.flash('message');
     res.render('admin', { title: 'Login', flashmsg: msg});
 });

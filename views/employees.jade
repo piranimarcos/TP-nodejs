@@ -1,28 +1,36 @@
 extends layout
 
 block content
-  h1= title
+  h1.center= title
   //p=JSON.stringify(employee) objetos json employees 
   -if(flashmsg != "Error to login!"){
-  p.bg-info.center=flashmsg
+  .row
+    .col-md-3
+    .col-md-6
+      p.bg-info.center=flashmsg
+    .col-md-3
   -}
-  p
-    a(href="/panel/employees/new") New
-  table
-    tr
-      th N
-      th Name
-      th Last Name
-      th Email
-      th Options
-    - employee.forEach(function(v,i){
-    tr
-      td=i
-      td=v.name
-      td=v.lastName
-      td #{v.email}
-      td
-        a(href="/panel/employees/edit/"+v._id) Edit
-        | 
-        a(href="/panel/employees/delete/"+v._id) Delete
-    - });
+  .row
+    .col-md-3
+    div.cont.col-md-6
+      p
+        a(class= "center", href="/panel/employees/new") New
+      table.table.table-hover
+        tr
+          th N
+          th Name
+          th Last Name
+          th Email
+          th Options
+        - employee.forEach(function(v,i){
+        tr
+          td=i
+          td=v.name
+          td=v.lastName
+          td #{v.email}
+          td
+            a(href="/panel/employees/edit/"+v._id) Edit
+            | 
+            a(href="/panel/employees/delete/"+v._id) Delete
+        - });
+    .col-md-3
