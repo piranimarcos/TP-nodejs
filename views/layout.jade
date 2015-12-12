@@ -6,7 +6,10 @@ html(lang='en')
     title= title
     block css
       link(rel='stylesheet', href='/css/style.css')
+      link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css', integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7', crossorigin='anonymous')
+
     block js
+      script(src='//code.jquery.com/jquery-1.7.js')
       if ENV_DEVELOPMENT
         script(src='http://localhost:35729/livereload.js')
   body
@@ -34,3 +37,4 @@ html(lang='en')
       }
     - }
     block content
+    

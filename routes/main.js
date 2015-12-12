@@ -48,6 +48,19 @@ app.get('/panel/employees', adminAuth, function(req, res){
     });
 });
 
+//parte de pedido por ajax
+app.get('/employees/search/:name', function(req, res){
+    Employees.find({ name: new RegExp(".*"+req.params.name+".*") })
+        //.populate('sueldo')
+        //.limit(10)
+        //.select('-password')
+        //.skip(4)
+        .exec( function(err, docs){
+           res.json(docs); 
+    });
+    
+});
+
 app.get('/panel/employees/new', adminAuth, function(req, res){
     req.flash('message', 'You added a new employee!'); // Save the flash message in this page
     res.render('new', { title: 'New Employee'});

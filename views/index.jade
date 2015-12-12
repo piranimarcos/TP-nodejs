@@ -1,5 +1,35 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Welcome to #{title}
+    
+    h1(align="center") Buscador
+    .form-group.form-group-lg
+      .col-sm-4
+      .col-sm-4
+        input#search.form-control.center(type='text', placeholder='Busqueda')
+      .col-sm-4
+    .row
+      .col-sm-2
+      .col-sm-6
+        div#resultados
+      .col-sm-2
+    
+
+    script.
+        $(document).ready(function(){
+            $('input#search').change(function(){
+                var val = $(this).val();
+                console.log(val);
+                $.ajax( "http://localhost:3200/employees/search/"+val).done(function(data){
+                    //$(#total).append(doc.length)
+                    $('#resultados').html('');
+                    $.each(data, function(index, doc){
+                        console.log(doc.name);
+                        $('#resultados').append('<p>'+doc.name+'</p>');
+                    });
+                });
+            });
+        });
+      
