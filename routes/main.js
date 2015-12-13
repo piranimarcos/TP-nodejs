@@ -53,7 +53,7 @@ app.get('/panel/employees', adminAuth, function(req, res){
 
 //parte de pedido por ajax
 app.get('/employees/search/:name', function(req, res){
-    Employees.find({ name: new RegExp(".*"+req.params.name+".*") })
+    Employees.find({ name: new RegExp(".*"+req.params.name+".*", 'gi') })
         //.populate('sueldo')
         //.limit(10)
         .select('-password')
